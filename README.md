@@ -1,6 +1,19 @@
 ### Recursos de interaçoes comerciais Senac
 ---
 
+<img src="imagem.png" alt="Exemplo imagem">
+
+> Um sistema comercial
+### Ajustes e melhorias
+
+O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas para as seguintes tarefas:
+
+- [x] Tarefa 1
+- [x] Tarefa 2
+- [x] Tarefa 3
+- [ ] Tarefa 4
+- [ ] Tarefa 5
+
 > [!NOTE]
 > Useful information that users should know, even when skimming content.
 
