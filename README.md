@@ -6,11 +6,11 @@
 > O R.I.C.S é um sistema comercial para gerenciar venda de cursos, onde é possível ter uma visão detalhada de vendas e afins.
 ### Ajustes e melhorias
 
-O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas para as seguintes tarefas:
+O projeto está em desenvolvimento e as próximas atualizações serão voltadas para os seguintes itens:
 
-- [x] Tarefa 1
-- [x] Tarefa 2
-- [x] Tarefa 3
+- [ ] Tarefa 1
+- [ ] Tarefa 2
+- [ ] Tarefa 3
 - [ ] Tarefa 4
 - [ ] Tarefa 5
 
