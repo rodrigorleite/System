@@ -3,7 +3,7 @@
 
 <img src="imagem.png" alt="Exemplo imagem">
 
-> Um sistema comercial
+> O R.I.C.S é um sistema comercial para venda de cursos, onde é possível gerenciar vendas e afins.
 ### Ajustes e melhorias
 
 O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas para as seguintes tarefas:
