@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" href="recursos/particle.css">
-    <link rel="stylesheet" href="../Styles/Style.css">
+    <link rel="stylesheet" href="Styles/Style.css">
 
 </head>
 
