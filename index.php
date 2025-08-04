@@ -12,8 +12,8 @@
         integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="stylesheet" href="recursos/particle.css">
     <link rel="stylesheet" href="Styles/Style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
 
 </head>
 
@@ -22,33 +22,46 @@
         <div class="cabecalho">
             <i class="fa-solid fa-circle-user"></i>
             <h3>Login</h3>
-
         </div>
-        <form class="dados">
+
+        <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+        <?php
+
+        if (isset($_GET['erro']) && $_GET['erro'] == 1) {
+            echo "<script>
+            var notyf = new Notyf({
+                duration: 3000,
+                    position: {
+                    x: 'center',
+                    y: 'top',
+                },
+            
+        });
+            notyf.error('login ou senha invalidos');
+            </script>";
+
+        }
+        ?>
+        <form class="dados" action="./backend/acesso.php" method="post">
             <div class="mb-3">
                 <label class="form-label">CPF</label>
-                <input type="text" class="form-control cpf" placeholder="Digite seu CPF">
+                <input name="cpf" type="text" class="form-control cpf" placeholder="Digite seu CPF">
             </div>
             <div class="mb-3">
                 <label for="senha" class="form-label">Senha</label>
                 <div class="input-group">
-                    <input type="password" class="form-control" id="senha" placeholder="Digite sua senha">
+                    <input name="senha" type="password" class="form-control" id="senha" placeholder="Digite sua senha">
                     <button class="btn btn-outline-secondary" type="button" id="toggleSenha">
                         <i class="fa fa-eye" id="iconeOlho"></i>
                     </button>
                 </div>
                 <div>
-                    <a href="../index.html" type="submit"
-                        class="btn btn-primary mt-4 ms-1 d-flex justify-content-center">Entrar</a>
+                    <button href="" type="submit"
+                        class="btn btn-primary mt-4 ms-1 justify-content-center">Entrar</button>
                 </div>
-
+            </div>
         </form>
     </div>
-
-    <!-- particles.js container -->
-    <div id="particles-js"></div> <!-- stats - count particles -->
-    <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> <!-- stats.js lib -->
-    <script src="http://threejs.org/examples/js/libs/stats.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
@@ -62,7 +75,6 @@
         integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script src="recursos/particles.js"></script>
-    <script src="../Js/Script.js"></script>
+    <script src="Js/Script.js"></script>
 
 </body>
