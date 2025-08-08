@@ -1,3 +1,10 @@
+<?php
+
+include '../backend/conexao.php';
+include '../backend/validacao.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -51,7 +58,7 @@
                     <input class="form-control me-2 text-center" type="search" placeholder="Buscar"
                         aria-label="Search" />
                     <button class="btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    <button class="btn ms-1" type="submit"><i class="fa-solid fa-door-open"></i></button>
+                    <a class="btn ms-1" href="../backend/logout.php"><i class="fa-solid fa-door-open"></i></a>
                 </form>
             </div>
         </div>
@@ -63,9 +70,10 @@
 
             <div class="col-2 menu">
                 <ul class="menu">
-                    <p style="color:white;">
-                        Bem vindo(a) <?php session_start(); echo $_SESSION["usuario"]; ?>a'
-                        </p>
+                    <p class="mt-4" style="color:white;">
+                        Bem vindo(a) <?php
+                        echo $_SESSION["usuario"]; ?>
+                    </p>
                     <li>
                         <a href="" class="menu-item"><i class="fa-solid fa-user"></i> Usuario</a>
                     </li>
@@ -90,7 +98,7 @@
                 </ul>
             </div>
 
-            <div class="col-5">
+            <div class="col-3">
                 <h1>Cadastro</h1>
 
                 <form>
@@ -107,7 +115,8 @@
                     <div class="mb-3">
                         <label for="senha" class="form-label">Senha</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" id="senha" placeholder="Digite sua senha">
+                            <input type="password" class="form-control" id="senha" placeholder="Digite sua senha"
+                                autocomplete="new-password">
                             <button class="btn btn-outline-secondary ms-1" type="button" id="toggleSenha">
                                 <i class="fa fa-eye" id="iconeOlho"></i>
                             </button>
@@ -118,79 +127,40 @@
                 </form>
             </div>
 
-            <div class="col-5">
+            <div class="col-7">
                 <h1>Listagem</h1>
 
-                <table id="tabela" class="table">
+                <table id="tabela" class="table text-center">
                     <thead class="table-info">
                         <tr>
                             <th scope="col">Id</th>
                             <th scope="col">Nome</th>
                             <th scope="col">E-Mail</th>
+                            <th scope="col">CPF</th>
                             <th scope="col">Senha</th>
+                            <th scope="col">Opções</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>markzin@gmail.com</td>
-                            <td>3!!h83182f\</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>jacobdoamasa@gmail.com</td>
-                            <td>@qiohfqwfqji*&*72</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>John</td>
-                            <td>johnshelby@pealblinders.com</td>
-                            <td>peaky9283!##</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>John</td>
-                            <td>Doe</td>
-                            <td>@social</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td>John</td>
-                            <td>Doe</td>
-                            <td>@social</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">6</th>
-                            <td>John</td>
-                            <td>Doe</td>
-                            <td>@social</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">7</th>
-                            <td>Adrien Ribeiro</td>
-                            <td>Doe</td>
-                            <td>@social</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">8</th>
-                            <td>John</td>
-                            <td>Doe</td>
-                            <td>@social</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">9</th>
-                            <td>John</td>
-                            <td>Doe</td>
-                            <td>@social</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">10</th>
-                            <td>John</td>
-                            <td>Doe</td>
-                            <td>@social</td>
-                        </tr>
+                        <?php
+                        $sql = "SELECT * FROM usuario";
+
+                        $dados = mysqli_query($conexao, $sql);
+
+                        while ($coluna = mysqli_fetch_assoc($dados)) {
+
+                            ?>
+                            <tr class="text-center">
+                                <th scope="row"> <?php echo $coluna['id'] ?></th>
+                                <td><?php echo $coluna['nome'] ?></td>
+                                <td><?php echo $coluna['email'] ?></td>
+                                <td><?php echo $coluna['cpf'] ?></td>
+                                <td><?php echo $coluna['senha'] ?></td>
+                                <td><i class="fa-solid fa-pencil" style="color: #9c7aff;"></i></i>
+                                    <i class="fa-solid fa-trash-can" style="color: #ff0000;"></i>
+                                </td>
+                            </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
