@@ -164,7 +164,7 @@ include '../backend/validacao.php';
                                 <td class="text-center"><?php echo $coluna['senha'] ?></td>
                                 <td class="text-center">
                                     <a href=""><i class="fa-solid fa-pencil me-4" style="color: #9c7aff;"></i></i></a>
-                                    <a href="" onclick="return confirm('Deseja realmente excluir!')"><i
+                                    <a href="<?php echo "../backend/user/delete.php?id=".$coluna['id'] ?>" onclick="return confirm('Deseja realmente excluir!')"><i
                                             class="fa-solid fa-trash-can" style="color: #ff0000;"></i>
                                     </a>
                                 </td>
