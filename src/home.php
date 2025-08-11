@@ -101,22 +101,28 @@ include '../backend/validacao.php';
             <div class="col-3">
                 <h1>Cadastro</h1>
 
-                <form>
+                <form action="../backend/user/insert.php">
+
                     <div class="mb-3">
-                        <label class="form-label">CPF</label>
-                        <input type="text" class="form-control cpf" placeholder="Digite seu CPF">
+                        <label class="form-label">Nome</label>
+                        <input name="nome" type="text" class="form-control" placeholder="Digite seu Nome">
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">E-mail</label>
-                        <input type="email" class="form-control" placeholder="Digite seu E-mail">
+                        <input name="email" type="email" class="form-control" placeholder="Digite seu E-mail">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">CPF</label>
+                        <input name="cpf" type="text" class="form-control cpf" placeholder="Digite seu CPF">
                     </div>
 
                     <div class="mb-3">
                         <label for="senha" class="form-label">Senha</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" id="senha" placeholder="Digite sua senha"
-                                autocomplete="new-password">
+                            <input name="senha" type="password" class="form-control" id="senha"
+                                placeholder="Digite sua senha" autocomplete="new-password">
                             <button class="btn btn-outline-secondary ms-1" type="button" id="toggleSenha">
                                 <i class="fa fa-eye" id="iconeOlho"></i>
                             </button>
@@ -130,15 +136,15 @@ include '../backend/validacao.php';
             <div class="col-7">
                 <h1>Listagem</h1>
 
-                <table id="tabela" class="table text-center">
+                <table id="tabela" class="table table-striped table-bordered">
                     <thead class="table-info">
                         <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">E-Mail</th>
-                            <th scope="col">CPF</th>
-                            <th scope="col">Senha</th>
-                            <th scope="col">Opções</th>
+                            <th class="text-center" scope="col">Id</th>
+                            <th class="text-center" scope="col">Nome</th>
+                            <th class="text-center" scope="col">E-Mail</th>
+                            <th class="text-center" scope="col">CPF</th>
+                            <th class="text-center" scope="col">Senha</th>
+                            <th class="text-center" scope="col">Opções</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -151,13 +157,16 @@ include '../backend/validacao.php';
 
                             ?>
                             <tr class="text-center">
-                                <th scope="row"> <?php echo $coluna['id'] ?></th>
-                                <td><?php echo $coluna['nome'] ?></td>
-                                <td><?php echo $coluna['email'] ?></td>
-                                <td><?php echo $coluna['cpf'] ?></td>
-                                <td><?php echo $coluna['senha'] ?></td>
-                                <td><i class="fa-solid fa-pencil" style="color: #9c7aff;"></i></i>
-                                    <i class="fa-solid fa-trash-can" style="color: #ff0000;"></i>
+                                <th class="text-center" scope="row"> <?php echo $coluna['id'] ?></th>
+                                <td class="text-center"><?php echo $coluna['nome'] ?></td>
+                                <td class="text-center"><?php echo $coluna['email'] ?></td>
+                                <td class="text-center"><?php echo $coluna['cpf'] ?></td>
+                                <td class="text-center"><?php echo $coluna['senha'] ?></td>
+                                <td class="text-center">
+                                    <a href=""><i class="fa-solid fa-pencil me-4" style="color: #9c7aff;"></i></i></a>
+                                    <a href="" onclick="return confirm('Deseja realmente excluir!')"><i
+                                            class="fa-solid fa-trash-can" style="color: #ff0000;"></i>
+                                    </a>
                                 </td>
                             </tr>
                         <?php } ?>
