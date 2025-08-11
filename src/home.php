@@ -16,10 +16,30 @@ include '../backend/validacao.php';
     <link rel="stylesheet" href="../Styles/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <title>Sistema</title>
 </head>
 
 <body>
+
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    <?php
+
+    if (isset($_GET['mensagem'])) {
+        echo "<script>
+            var notyf = new Notyf({
+                duration: 3000,
+                    position: {
+                    x: 'center',
+                    y: 'top',
+                },
+            
+        });
+            notyf.sucess("$_SESSION['mensagem']");
+            </script>";
+
+    }
+    ?>
 
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-dark">
@@ -70,7 +90,7 @@ include '../backend/validacao.php';
 
             <div class="col-2 menu">
                 <ul class="menu">
-                    <p class="mt-4" style="color:white;">
+                    <p class="mt-4 " style="color:white;">
                         Bem vindo(a) <?php
                         echo $_SESSION["usuario"]; ?>
                     </p>
@@ -98,7 +118,7 @@ include '../backend/validacao.php';
                 </ul>
             </div>
 
-            <div class="col-3">
+            <div class="col-3 mt-4">
                 <h1>Cadastro</h1>
 
                 <form action="../backend/user/insert.php">
@@ -133,7 +153,7 @@ include '../backend/validacao.php';
                 </form>
             </div>
 
-            <div class="col-7">
+            <div class="col-7 mt-4">
                 <h1>Listagem</h1>
 
                 <table id="tabela" class="table table-striped table-bordered">
@@ -164,7 +184,8 @@ include '../backend/validacao.php';
                                 <td class="text-center"><?php echo $coluna['senha'] ?></td>
                                 <td class="text-center">
                                     <a href=""><i class="fa-solid fa-pencil me-4" style="color: #9c7aff;"></i></i></a>
-                                    <a href="<?php echo "../backend/user/delete.php?id=".$coluna['id'] ?>" onclick="return confirm('Deseja realmente excluir!')"><i
+                                    <a href="<?php echo "../backend/user/delete.php?id=" . $coluna['id'] ?>"
+                                        onclick="return confirm('Deseja realmente excluir!')"><i
                                             class="fa-solid fa-trash-can" style="color: #ff0000;"></i>
                                     </a>
                                 </td>
