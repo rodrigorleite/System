@@ -2,11 +2,18 @@
 
 include '../conexao.php';
 
-$id = $_REQUEST['id'];
+$nome = $_REQUEST['nome'];
+$email = $_REQUEST['email'];
+$cpf = $_REQUEST['cpf'];
+$senha = $_REQUEST['senha'];
 
-$sql =  "DELETE FROM usuario WHERE id = '$id' ";
-$resultado = mysqli_query($conexao, $sql);
+$sqlc= "UPDATE usuario SET nome = '$nome', email = '$email', cpf = '$cpf', senha = '$senha' Where id = '$id' ";
 
-header('Location:../../src/home.php');
+session_start();
+$_SESSION['mensagem'] = "Usuario editado com sucesso!";
+$_SESSION['tipo'] = "success, error, info, warning";
+
+mysqli_query($conexao, $sql);
+header('Location:../../src/home.php')
 
 ?>

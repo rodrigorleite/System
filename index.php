@@ -39,7 +39,7 @@
         });
             notyf.error('login ou senha invalidos');
             </script>";
-
+            unset($_SESSION['mensagem']);
         }
         ?>
         <form class="dados" action="./backend/acesso.php" method="post">

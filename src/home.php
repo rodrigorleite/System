@@ -3,6 +3,17 @@
 include '../backend/conexao.php';
 include '../backend/validacao.php';
 
+$destino = "../backend/user/insert.php";
+
+if (!empty($_GET['ID'])) {
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM usuario WHERE id = '$id' ";
+
+    $dados = mysqli_query($conexao, $sql);
+    $usuarios = mysqli_fetch_assoc($dados);
+    $$destino = "../backend/user/insert.php";
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -22,24 +33,14 @@ include '../backend/validacao.php';
 
 <body>
 
-    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-    <?php
+    <?php if (isset($_SESSION['mensagem'])) {
+        echo "<script> var notyf = new Notyf({ duration: 3000, 
+        position: { x: 'center', y: 'top', }, });
+         notyf.success(' " . $_SESSION['mensagem'] . " '); 
+         </script>";
+        unset($_SESSION['mensagem']);
+    } ?>
 
-    if (isset($_GET['mensagem'])) {
-        echo "<script>
-            var notyf = new Notyf({
-                duration: 3000,
-                    position: {
-                    x: 'center',
-                    y: 'top',
-                },
-            
-        });
-            notyf.sucess("$_SESSION['mensagem']");
-            </script>";
-
-    }
-    ?>
 
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-dark">
@@ -183,7 +184,8 @@ include '../backend/validacao.php';
                                 <td class="text-center"><?php echo $coluna['cpf'] ?></td>
                                 <td class="text-center"><?php echo $coluna['senha'] ?></td>
                                 <td class="text-center">
-                                    <a href=""><i class="fa-solid fa-pencil me-4" style="color: #9c7aff;"></i></i></a>
+                                    <a href="./home.php?id=<?= $coluna['id'] ?>"><i class="fa-solid fa-pencil me-4"
+                                            style="color: #9c7aff;"></i></i></a>
                                     <a href="<?php echo "../backend/user/delete.php?id=" . $coluna['id'] ?>"
                                         onclick="return confirm('Deseja realmente excluir!')"><i
                                             class="fa-solid fa-trash-can" style="color: #ff0000;"></i>

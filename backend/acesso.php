@@ -18,8 +18,6 @@ $coluna = mysqli_fetch_assoc($resultado);
 
 echo $coluna['nome'];
 
-echo $coluna['nome'];
-
 if (mysqli_num_rows($resultado) > 0) {
    session_start(); //INICIAR SESSÃO
 
