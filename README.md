@@ -13,3 +13,4 @@ O projeto está em desenvolvimento e as próximas atualizações serão voltadas
 - [ ] Reformular o design da tela de login
 - [ ] Implementar melhorias no codigo
 - [ ] Realizar a organização da pasta
+- [ ] Adicionar uma paleta de cores
