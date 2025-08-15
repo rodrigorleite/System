@@ -3,15 +3,15 @@
 include '../backend/conexao.php';
 include '../backend/validacao.php';
 
-$destino = "../backend/user/insert.php";
+$destino = "../backend/region/insert.php";
 
-if (!empty($_GET['id'])) {
-    $id = $_GET['id'];
-    $sql = "SELECT * FROM usuario WHERE id = '$id' ";
+if (!empty($_GET['Id'])) {
+    $id = $_GET['Id'];
+    $sql = "SELECT * FROM regiao WHERE Id = '$id' ";
 
     $dados = mysqli_query($conexao, $sql);
-    $usuarios = mysqli_fetch_assoc($dados);
-    $destino = "../backend/user/edit.php";
+    $regiao = mysqli_fetch_assoc($dados);
+    $destino = "../backend/region/edit.php";
 
 }
 ?>
@@ -105,6 +105,7 @@ if (!empty($_GET['id'])) {
                         Bem vindo(a) <?php
                         echo $_SESSION["usuario"]; ?>
                     </p>
+                    
                     <li class="mt-2">
                         <a href="home.php" class="menu-item"><i class="fa-solid fa-user"></i> Usuario</a>
                     </li>
@@ -149,35 +150,10 @@ if (!empty($_GET['id'])) {
                             class="form-control" placeholder="Digite seu Nome">
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">E-mail</label>
-                        <input name="email" type="email"
-                            value="<?php echo isset($usuarios) ? $usuarios['email'] : "" ?>" class="form-control"
-                            placeholder="Digite seu E-mail">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">CPF</label>
-                        <input name="cpf" type="text" value="<?php echo isset($usuarios) ? $usuarios['cpf'] : "" ?>"
-                            class="form-control cpf" placeholder="Digite seu CPF">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="senha" class="form-label">Senha</label>
-                        <div class="input-group">
-                            <input name="senha" type="password" class="form-control" id="senha"
-                                placeholder="Digite sua senha"
-                                value="<?php echo isset($usuarios) ? $usuarios['senha'] : "" ?>"
-                                autocomplete="new-password">
-                            <button class="btn btn-outline-secondary ms-1" type="button" id="toggleSenha">
-                                <i class="fa fa-eye" id="iconeOlho"></i>
-                            </button>
-                        </div>
-                    </div>
-
                     <button type="submit" class="btn btn-primary">Salvar</button>
                 </form>
             </div>
+
 
             <div class="col-7 mt-4">
                 <h1>Listagem</h1>
@@ -187,15 +163,12 @@ if (!empty($_GET['id'])) {
                         <tr>
                             <th class="text-center" scope="col">Id</th>
                             <th class="text-center" scope="col">Nome</th>
-                            <th class="text-center" scope="col">E-Mail</th>
-                            <th class="text-center" scope="col">CPF</th>
-                            <th class="text-center" scope="col">Senha</th>
                             <th class="text-center" scope="col">Opções</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        $sql = "SELECT * FROM usuario";
+                        $sql = "SELECT * FROM regiao";
 
                         $dados = mysqli_query($conexao, $sql);
 
@@ -203,15 +176,12 @@ if (!empty($_GET['id'])) {
 
                             ?>
                             <tr class="text-center">
-                                <th class="text-center" scope="row"> <?php echo $coluna['id'] ?></th>
+                                <th class="text-center" scope="row"> <?php echo $coluna['Id'] ?></th>
                                 <td class="text-center"><?php echo $coluna['nome'] ?></td>
-                                <td class="text-center"><?php echo $coluna['email'] ?></td>
-                                <td class="text-center"><?php echo $coluna['cpf'] ?></td>
-                                <td class="text-center"><?php echo $coluna['senha'] ?></td>
                                 <td class="text-center">
-                                    <a href="./home.php?id=<?= $coluna['id'] ?>"><i class="fa-solid fa-pencil me-4"
+                                    <a href="./home.php?id=<?=$coluna['Id']?>"><i class="fa-solid fa-pencil me-4"
                                             style="color: #9c7aff;"></i></i></a>
-                                    <a href="<?php echo "../backend/user/delete.php?id=" . $coluna['id'] ?>"
+                                    <a href="<?php echo "../backend/user/delete.php?id=".$coluna['Id'] ?>"
                                         onclick="return confirm('Deseja realmente excluir!')"><i
                                             class="fa-solid fa-trash-can" style="color: #ff0000;"></i>
                                     </a>
@@ -224,6 +194,13 @@ if (!empty($_GET['id'])) {
 
 
         </div>
+
+    </div>
+
+
+
+
+    </div>
 
     </div>
 

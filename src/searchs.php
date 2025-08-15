@@ -105,7 +105,7 @@ if (!empty($_GET['id'])) {
                         Bem vindo(a) <?php
                         echo $_SESSION["usuario"]; ?>
                     </p>
-                    <li class="mt-2">
+<li class="mt-2">
                         <a href="home.php" class="menu-item"><i class="fa-solid fa-user"></i> Usuario</a>
                     </li>
                     <li class="mt-2">
@@ -131,96 +131,6 @@ if (!empty($_GET['id'])) {
                 </ul>
             </div>
 
-            <div class="col-3 mt-4">
-                <h1>Cadastro</h1>
-
-                <form action="<?= $destino ?>" method="post">
-
-                    <div class="mb-3" style="display: none">
-                        <label class="form-label">Id</label>
-                        <input readonly name="id" type="text"
-                            value="<?php echo isset($usuarios) ? $usuarios['id'] : "" ?>" class="form-control"
-                            placeholder="Digite seu Nome">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Nome</label>
-                        <input name="nome" type="text" value="<?php echo isset($usuarios) ? $usuarios['nome'] : "" ?>"
-                            class="form-control" placeholder="Digite seu Nome">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">E-mail</label>
-                        <input name="email" type="email"
-                            value="<?php echo isset($usuarios) ? $usuarios['email'] : "" ?>" class="form-control"
-                            placeholder="Digite seu E-mail">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">CPF</label>
-                        <input name="cpf" type="text" value="<?php echo isset($usuarios) ? $usuarios['cpf'] : "" ?>"
-                            class="form-control cpf" placeholder="Digite seu CPF">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="senha" class="form-label">Senha</label>
-                        <div class="input-group">
-                            <input name="senha" type="password" class="form-control" id="senha"
-                                placeholder="Digite sua senha"
-                                value="<?php echo isset($usuarios) ? $usuarios['senha'] : "" ?>"
-                                autocomplete="new-password">
-                            <button class="btn btn-outline-secondary ms-1" type="button" id="toggleSenha">
-                                <i class="fa fa-eye" id="iconeOlho"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Salvar</button>
-                </form>
-            </div>
-
-            <div class="col-7 mt-4">
-                <h1>Listagem</h1>
-
-                <table id="tabela" class="table table-striped table-bordered">
-                    <thead class="table-info">
-                        <tr>
-                            <th class="text-center" scope="col">Id</th>
-                            <th class="text-center" scope="col">Nome</th>
-                            <th class="text-center" scope="col">E-Mail</th>
-                            <th class="text-center" scope="col">CPF</th>
-                            <th class="text-center" scope="col">Senha</th>
-                            <th class="text-center" scope="col">Opções</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $sql = "SELECT * FROM usuario";
-
-                        $dados = mysqli_query($conexao, $sql);
-
-                        while ($coluna = mysqli_fetch_assoc($dados)) {
-
-                            ?>
-                            <tr class="text-center">
-                                <th class="text-center" scope="row"> <?php echo $coluna['id'] ?></th>
-                                <td class="text-center"><?php echo $coluna['nome'] ?></td>
-                                <td class="text-center"><?php echo $coluna['email'] ?></td>
-                                <td class="text-center"><?php echo $coluna['cpf'] ?></td>
-                                <td class="text-center"><?php echo $coluna['senha'] ?></td>
-                                <td class="text-center">
-                                    <a href="./home.php?id=<?= $coluna['id'] ?>"><i class="fa-solid fa-pencil me-4"
-                                            style="color: #9c7aff;"></i></i></a>
-                                    <a href="<?php echo "../backend/user/delete.php?id=" . $coluna['id'] ?>"
-                                        onclick="return confirm('Deseja realmente excluir!')"><i
-                                            class="fa-solid fa-trash-can" style="color: #ff0000;"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
-            </div>
 
 
         </div>
