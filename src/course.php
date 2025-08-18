@@ -4,15 +4,15 @@ include '../backend/conexao.php';
 include '../backend/validacao.php';
 include 'recursos/style.php';
 
-$destino = "../backend/region/insert.php";
+$destino = "../backend/course/insert.php";
 
-if (!empty($_GET['Id'])) {
-    $id = $_GET['Id'];
-    $sql = "SELECT * FROM regiao WHERE Id = '$id' ";
+if (!empty($_GET['id'])) {
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM curso WHERE id = '$id' ";
 
     $dados = mysqli_query($conexao, $sql);
-    $regiao = mysqli_fetch_assoc($dados);
-    $destino = "../backend/region/edit.php";
+    $curso = mysqli_fetch_assoc($dados);
+    $destino = "../backend/course/edit.php";
 
 }
 ?>
@@ -29,21 +29,42 @@ if (!empty($_GET['Id'])) {
                 <?php include 'recursos/side-menu.php' ?>
             </div>
 
-            <div class="col-4 mt-4">
+            <div class="col-3 mt-4">
                 <h1>Cadastro</h1>
 
                 <form action="<?= $destino ?>" method="post">
 
                     <div class="mb-3" style="display: none">
                         <label class="form-label">Id</label>
-                        <input readonly name="Id" type="text" value="<?php echo isset($regiao) ? $regiao['Id'] : "" ?>"
+                        <input readonly name="id" type="text" value="<?php echo isset($curso) ? $curso['id'] : "" ?>"
                             class="form-control" placeholder="">
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Nome</label>
-                        <input name="nome" type="text" value="<?php echo isset($regiao) ? $regiao['nome'] : "" ?>"
-                            class="form-control" placeholder="Digite seu Nome">
+                        <input name="nome" type="text" value="<?php echo isset($curso) ? $curso['nome'] : "" ?>"
+                            class="form-control" placeholder="Digite o nome do curso">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Numero</label>
+                        <input name="numero" type="text" value="<?php echo isset($curso) ? $curso['numero'] : "" ?>"
+                            class="form-control" placeholder="Digite o numero do curso">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Área</label>
+                        <select name="id_area_fk" class="form-control">
+                            <option value="">Selecione a área</option>
+                            <?php
+                            $sql_areas = "SELECT id, nome FROM area";
+                            $result_areas = mysqli_query($conexao, $sql_areas);
+                            while ($area = mysqli_fetch_assoc($result_areas)) {
+                                $selected = isset($curso) && $curso['id_area_fk'] == $area['id'] ? 'selected' : '';
+                                echo "<option value='{$area['id']}' $selected>{$area['nome']}</option>";
+                            }
+                            ?>
+                        </select>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Salvar</button>
@@ -51,7 +72,7 @@ if (!empty($_GET['Id'])) {
             </div>
 
 
-            <div class="col-6 mt-4">
+            <div class="col-7 mt-4">
                 <h1>Listagem</h1>
 
                 <table id="tabela" class="table table-striped table-bordered">
@@ -59,12 +80,13 @@ if (!empty($_GET['Id'])) {
                         <tr>
                             <th class="text-center" scope="col">Id</th>
                             <th class="text-center" scope="col">Nome</th>
+                            <th class="text-center" scope="col">Numero</th>
                             <th class="text-center" scope="col">Opções</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        $sql = "SELECT * FROM regiao";
+                        $sql = "SELECT * FROM curso";
 
                         $dados = mysqli_query($conexao, $sql);
 
@@ -72,12 +94,13 @@ if (!empty($_GET['Id'])) {
 
                             ?>
                             <tr class="text-center">
-                                <th class="text-center" scope="row"> <?php echo $coluna['Id'] ?></th>
+                                <th class="text-center" scope="row"> <?php echo $coluna['id'] ?></th>
                                 <td class="text-center"><?php echo $coluna['nome'] ?></td>
+                                <td class="text-center"><?php echo $coluna['numero'] ?></td>
                                 <td class="text-center">
-                                    <a href="./region.php?Id=<?= $coluna['Id'] ?>"><i class="fa-solid fa-pencil me-4"
+                                    <a href="./course.php?id=<?= $coluna['id'] ?>"><i class="fa-solid fa-pencil me-4"
                                             style="color: #9c7aff;"></i></i></a>
-                                    <a href="<?php echo "../backend/region/delete.php?Id=" . $coluna['Id'] ?>"
+                                    <a href="<?php echo "../backend/course/delete.php?id=" . $coluna['id'] ?>"
                                         onclick="return confirm('Deseja realmente excluir!')"><i
                                             class="fa-solid fa-trash-can" style="color: #ff0000;"></i>
                                     </a>

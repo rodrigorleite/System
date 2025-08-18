@@ -2,159 +2,146 @@
 
 include '../backend/conexao.php';
 include '../backend/validacao.php';
+include 'recursos/style.php';
 
-$destino = "../backend/user/insert.php";
+$destino = "../backend/searchs/insert.php";
 
 if (!empty($_GET['id'])) {
     $id = $_GET['id'];
-    $sql = "SELECT * FROM usuario WHERE id = '$id' ";
+    $sql = "SELECT * FROM venda WHERE id = '$id' ";
 
     $dados = mysqli_query($conexao, $sql);
-    $usuarios = mysqli_fetch_assoc($dados);
-    $destino = "../backend/user/edit.php";
+    $venda = mysqli_fetch_assoc($dados);
+    $destino = "../backend/searchs/edit.php";
 
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="stylesheet" href="../Styles/Style.css">
-
-</head>
-
 <body>
+
+    <?php include 'recursos/navbar.php' ?>
 
     <div class="container-fluid">
 
         <div class="row">
 
             <div class="col-2 menu">
-                <ul class="menu">
-                    <p class="mt-4 " style="color:white;">
-                        Bem vindo(a) <?php
-                        echo $_SESSION["usuario"]; ?>
-                    </p>
-                    <li class="mt-2">
-                        <a href="home.php" class="menu-item"><i class="fa-solid fa-user"></i> Usuario</a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="region.php" class="menu-item"><i class="fa-solid fa-globe"></i> Regiões</a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="city.php" class="menu-item"><i class="fa-solid fa-city"></i> Cidades</a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="pointf.php" class="menu-item"><i class="fa-solid fa-crosshairs"></i> Pontos Focais</a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="area.php" class="menu-item"><i class="fa-solid fa-graduation-cap"></i> Áreas</a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="esell.php" class="menu-item"><i class="fa-solid fa-money-bill-trend-up"></i> Efetuar
-                            Venda</a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="searchs.php" class="menu-item"><i class="fa-solid fa-magnifying-glass"></i> Pesquisar
-                            Vendas</a>
-                    </li>
-                </ul>
+                <?php include 'recursos/side-menu.php' ?>
             </div>
 
             <div class="col-3">
 
                 <h2 class="text-center mt-2">Relatorio de Vendas de Áreas!</h2>
 
-                <div class="col-md-">
-                    <label for="">Região</label>
-                    <select class="form-select">
-                        <option value="">Noroeste</option>
-                        <option value="">Sul</option>
+                <div class="mb-3">
+                    <label class="form-label">Região</label>
+                    <select name="id_regiao_fk" class="form-select">
+                        <option value="">Selecione a região</option>
+                        <?php
+                        // Consulta para obter os nomes das regiões
+                        $sql_regioes = "SELECT id, nome FROM regiao";
+                        $result_regioes = mysqli_query($conexao, $sql_regioes);
+
+                        // Verifica se há regiões retornadas
+                        if ($result_regioes && mysqli_num_rows($result_regioes) > 0) {
+                            // Itera sobre as regiões e cria as opções no select
+                            while ($regiao = mysqli_fetch_assoc($result_regioes)) {
+                                // Verifica se a região é a selecionada
+                                $selected = (isset($curso) && $curso['id_regiao_fk'] == $regiao['id']) ? 'selected' : '';
+                                echo "<option value='{$regiao['id']}' $selected>{$regiao['nome']}</option>";
+                            }
+                        } else {
+                            echo "<option value=''>Nenhuma região disponível</option>";
+                        }
+                        ?>
                     </select>
                 </div>
 
-                <div class="col-md-">
-                    <label for="">Cidade</label>
-                    <select class="form-select">
-                        <option value="">Nova Londrina</option>
-                        <option value="">Sitio de Nova londrina</option>
+
+                <div class="mb-3">
+                    <label class="form-label">Cidade</label>
+                    <select name="id_cidade_fk" class="form-select">
+                        <option value="">Selecione a cidade</option>
+                        <?php
+                        // Consulta para obter os nomes das cidades
+                        $sql_cidades = "SELECT id, nome FROM cidade";
+                        $result_cidades = mysqli_query($conexao, $sql_cidades);
+
+                        // Verifica se há cidades retornadas
+                        if ($result_cidades && mysqli_num_rows($result_cidades) > 0) {
+                            // Itera sobre as cidades e cria as opções no select
+                            while ($cidade = mysqli_fetch_assoc($result_cidades)) {
+                                // Verifica se a cidade é a selecionada
+                                $selected = (isset($curso) && $curso['id_cidade_fk'] == $cidade['id']) ? 'selected' : '';
+                                echo "<option value='{$cidade['id']}' $selected>{$cidade['nome']}</option>";
+                            }
+                        } else {
+                            echo "<option value=''>Nenhuma cidade disponível</option>";
+                        }
+                        ?>
                     </select>
                 </div>
 
-                <div class="col-md-">
-                    <label for="">Ponto Focal</label>
-                    <select class="form-select">
-                        <option value="">Nova Londrina</option>
-                        <option value="">Sitio de Nova londrina</option>
-                    </select>
+                <div class="mb-3">
+                    <label class="form-label">Ponto Focal</label>
+                    <select name="id_ponto_focal_fk" class="form-select">
+                        <option value="">Selecione o ponto focal</option>
+                        <?php
+                        // Consulta para obter os nomes dos pontos focais
+                        $sql_pontos_focais = "SELECT id, nome FROM ponto_focal";
+                        $result_pontos_focais = mysqli_query($conexao, $sql_pontos_focais);
 
-                </div>
-                <div class="col-md-">
-                    <label for="">Área de curso</label>
-                    <select class="form-select">
-                        <option value="">Tecnologi</option>
-                        <option value="">Gastromia</option>
-                        <option value="">Garoto de Programa</option>
+                        // Verifica se há pontos focais retornados
+                        if ($result_pontos_focais && mysqli_num_rows($result_pontos_focais) > 0) {
+                            // Itera sobre os pontos focais e cria as opções no select
+                            while ($ponto_focal = mysqli_fetch_assoc($result_pontos_focais)) {
+                                // Verifica se o ponto focal é o selecionado
+                                $selected = (isset($curso) && $curso['id_ponto_focal_fk'] == $ponto_focal['id']) ? 'selected' : '';
+                                echo "<option value='{$ponto_focal['id']}' $selected>{$ponto_focal['nome']}</option>";
+                            }
+                        } else {
+                            echo "<option value=''>Nenhum ponto focal disponível</option>";
+                        }
+                        ?>
                     </select>
                 </div>
+
             </div>
 
             <div class=" col-7 table-responsive mt-5">
-                <table id="tabela" class="table table-bordered table-striped">
 
-                    <thead class="table-info">
-                        <tr>
-                            <th class="text-center" scope="col">Região</th>
-                            <th class="text-center" scope="col">Cidade</th>
-                            <th class="text-center" scope="col">Ponto Focal</th>
-                            <th class="text-center" scope="col">Tipo</th>
-                            <th class="text-center" scope="col">Área de curso</th>
-                            <th class="text-center" scope="col">Data da Compra</th>
-                            <th class="text-center" scope="col">Origem</th>
-                            <th class="text-center" scope="col">Obs</th>
-                            <th class="text-center" scope="col">Excluir</th>
-                        </tr>
-                    </thead>
 
-                    <tbody>
-                        <?php
-                        $sql = "SELECT * FROM usuario";
+                <div class="">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Bar chart</h4>
+                            <canvas id="barChart" style="height:230px"></canvas>
+                        </div>
+                    </div>
+                </div>
 
-                        $dados = mysqli_query($conexao, $sql);
+                <div class="row">
+                    <div class="">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Doughnut chart</h4>
+                                <canvas id="doughnutChart" style="height:250px"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Grafico de Barras</h4>
+                                <canvas id="pieChart" style="height:250px"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                        while ($coluna = mysqli_fetch_assoc($dados)) {
-
-                            ?>
-                            <tr class="text-center">
-                                <th class="text-center" scope="row"> <?php echo $coluna['id'] ?></th>
-                                <td class="text-center"><?php echo $coluna['nome'] ?></td>
-                                <td class="text-center"><?php echo $coluna['email'] ?></td>
-                                <td class="text-center"><?php echo $coluna['cpf'] ?></td>
-                                <td class="text-center"><?php echo $coluna['senha'] ?></td>
-                                <td class="text-center">
-                                    <a href="./home.php?id=<?= $coluna['id'] ?>"><i class="fa-solid fa-pencil me-4"
-                                            style="color: #9c7aff;"></i></i></a>
-                                    <a href="<?php echo "../backend/user/delete.php?id=" . $coluna['id'] ?>"
-                                        onclick="return confirm('Deseja realmente excluir!')"><i
-                                            class="fa-solid fa-trash-can" style="color: #ff0000;"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-
-                    <!-- <body>
+                <!-- <body>
                         <tr>
                             <td>Noroeste</td>
                             <td>Nova Londrina</td>
@@ -171,23 +158,37 @@ if (!empty($_GET['id'])) {
                         </tr>
                     </body>
                     </thead> -->
-                </table>
             </div>
         </div>
-    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"
-        integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"
+            integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script src="../Js/Script.js"></script>
+        <script src="../Js/Script.js"></script>
+
+        <script src="../backend/assets/vendors/js/vendor.bundle.base.js"></script>
+        <!-- endinject -->
+        <!-- Plugin js for this page -->
+        <script src="../backend/assets/vendors/chart.js/Chart.min.js"></script>
+        <!-- End plugin js for this page -->
+        <!-- inject:js -->
+        <script src="../backend/assets/js/off-canvas.js"></script>
+        <script src="../backend/assets/js/hoverable-collapse.js"></script>
+        <script src="../backend/assets/js/misc.js"></script>
+        <script src="../backend/assets/js/settings.js"></script>
+        <script src="../backend/assets/js/todolist.js"></script>
+        <!-- endinject -->
+        <!-- Custom js for this page -->
+        <script src="../backend/assets/js/chart.js"></script>
+        <!-- End custom js for this page -->
 
 </body>

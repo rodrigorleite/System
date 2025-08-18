@@ -2,138 +2,151 @@
 
 include '../backend/conexao.php';
 include '../backend/validacao.php';
+include 'recursos/style.php';
 
-$destino = "../backend/user/insert.php";
+$destino = "../backend/pointf/insert.php";
 
 if (!empty($_GET['id'])) {
     $id = $_GET['id'];
-    $sql = "SELECT * FROM usuario WHERE id = '$id' ";
+    $sql = "SELECT * FROM ponto_focal WHERE id = '$id' ";
 
     $dados = mysqli_query($conexao, $sql);
-    $usuarios = mysqli_fetch_assoc($dados);
-    $destino = "../backend/user/edit.php";
+    $ponto_focal = mysqli_fetch_assoc($dados);
+    $destino = "../backend/pointf/edit.php";
 
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <link rel="stylesheet" href="../Styles/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
-    <title>Sistema</title>
-</head>
-
 <body>
 
-    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-    <?php
-
-    if (isset($_SESSION['mensagem'])) {
-        echo "<script>
-            var notyf = new Notyf({
-                duration: 3000,
-                    position: {
-                    x: 'center',
-                    y: 'top',
-                },
-            
-        });
-            notyf.success(' " . $_SESSION['mensagem'] . " ');
-            </script>";
-        unset($_SESSION['mensagem']);
-    }
-    ?>
-
-    <!-- Header -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid">
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand" href="#"> <i class="fa-solid fa-book"></i> É isso ai!</a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active text-center" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-center" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-center" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item text-center" href="#">Action</a></li>
-                            <li><a class="dropdown-item text-center" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item text-center" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2 text-center" type="search" placeholder="Buscar"
-                        aria-label="Search" />
-                    <button class="btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    <a class="btn ms-1" href="../backend/logout.php"><i class="fa-solid fa-door-open"></i></a>
-                </form>
-            </div>
-        </div>
-    </nav>
+    <?php include 'recursos/navbar.php' ?>
 
     <div class="container-fluid">
 
         <div class="row">
 
             <div class="col-2 menu">
-                <ul class="menu">
-                    <p class="mt-4 " style="color:white;">
-                        Bem vindo(a) <?php
-                        echo $_SESSION["usuario"]; ?>
-                    </p>
-                    <li class="mt-2">
-                        <a href="home.php" class="menu-item"><i class="fa-solid fa-user"></i> Usuario</a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="region.php" class="menu-item"><i class="fa-solid fa-globe"></i> Regiões</a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="city.php" class="menu-item"><i class="fa-solid fa-city"></i> Cidades</a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="pointf.php" class="menu-item"><i class="fa-solid fa-crosshairs"></i> Pontos Focais</a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="area.php" class="menu-item"><i class="fa-solid fa-graduation-cap"></i> Áreas</a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="esell.php" class="menu-item"><i class="fa-solid fa-money-bill-trend-up"></i> Efetuar
-                            Venda</a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="searchs.php" class="menu-item"><i class="fa-solid fa-magnifying-glass"></i> Pesquisar
-                            Vendas</a>
-                    </li>
-                </ul>
+                <?php include 'recursos/side-menu.php' ?>
+            </div>
+
+            <div class="col-2 mt-4">
+                <h1>Cadastro</h1>
+
+                <form action="<?= $destino ?>" method="post">
+
+                    <div class="mb-3" style="display: none">
+                        <label class="form-label">Id</label>
+                        <input readonly name="id" type="text"
+                            value="<?php echo isset($ponto_focal) ? $ponto_focal['id'] : "" ?>" class="form-control"
+                            placeholder="">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nome</label>
+                        <input name="nome" type="text"
+                            value="<?php echo isset($ponto_focal) ? $ponto_focal['nome'] : "" ?>" class="form-control"
+                            placeholder="Digite o nome">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Razão Social</label>
+                        <input name="razaoo_social" type="text"
+                            value="<?php echo isset($ponto_focal) ? $ponto_focal['estado'] : "" ?>" class="form-control"
+                            placeholder="Digite a razão social">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Tipo</label>
+                        <input name="tipo" type="text"
+                            value="<?php echo isset($ponto_focal) ? $ponto_focal['cep'] : "" ?>" class="form-control"
+                            placeholder="Digite o tipo da empresa">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">CPF</label>
+                        <input name="cnpj_cpf" type="text"
+                            value="<?php echo isset($ponto_focal) ? $ponto_focal['cep'] : "" ?>"
+                            class="form-control cpf" placeholder="Digite o CPF">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">CNPJ</label>
+                        <input name="cnpj_cpf" type="text"
+                            value="<?php echo isset($ponto_focal) ? $ponto_focal['cep'] : "" ?>"
+                            class="form-control cnpj" placeholder="Digite o CNPJ">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Endereço</label>
+                        <input name="endereco" type="text"
+                            value="<?php echo isset($ponto_focal) ? $ponto_focal['endereco'] : "" ?>"
+                            class="form-control" placeholder="Digite o Endereço">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
             </div>
 
 
+            <div class="col-8 mt-4">
+                <h1>Listagem</h1>
+
+                <table id="tabela" class="table table-striped table-bordered">
+                    <thead class="table-info">
+                        <tr>
+                            <th class="text-center" scope="col">Id</th>
+                            <th class="text-center" scope="col">Nome</th>
+                            <th class="text-center" scope="col">Razão Social</th>
+                            <th class="text-center" scope="col">Tipo</th>
+                            <th class="text-center" scope="col">Cnpj/CPF</th>
+                            <th class="text-center" scope="col">Endereço</th>
+                            <th class="text-center" scope="col">Telefone</th>
+                            <th class="text-center" scope="col">Celular</th>
+                            <th class="text-center" scope="col">Email</th>
+                            <th class="text-center" scope="col">Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $sql = "SELECT * FROM ponto_focal";
+
+                        $dados = mysqli_query($conexao, $sql);
+
+                        while ($coluna = mysqli_fetch_assoc($dados)) {
+
+                            ?>
+                            <tr class="text-center">
+                                <th class="text-center" scope="row"> <?php echo $coluna['id'] ?></th>
+                                <td class="text-center"><?php echo $coluna['nome'] ?></td>
+                                <td class="text-center"><?php echo $coluna['razao_social'] ?></td>
+                                <td class="text-center"><?php echo $coluna['tipo'] ?></td>
+                                <td class="text-center"><?php echo $coluna['cnpj_cpf'] ?></td>
+                                <td class="text-center"><?php echo $coluna['endereco'] ?></td>
+                                <td class="text-center"><?php echo $coluna['telefone'] ?></td>
+                                <td class="text-center"><?php echo $coluna['celular'] ?></td>
+                                <td class="text-center"><?php echo $coluna['email'] ?></td>
+                                <td class="text-center">
+                                    <a href="./home.php?id=<?= $coluna['id'] ?>"><i class="fa-solid fa-pencil me-4"
+                                            style="color: #9c7aff;"></i></i></a>
+                                    <a href="<?php echo "../backend/city/delete.php?id=" . $coluna['id'] ?>"
+                                        onclick="return confirm('Deseja realmente excluir!')"><i
+                                            class="fa-solid fa-trash-can" style="color: #ff0000;"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+
 
         </div>
+
+    </div>
+
+
+
+
+    </div>
 
     </div>
 

@@ -4,15 +4,15 @@ include '../backend/conexao.php';
 include '../backend/validacao.php';
 include 'recursos/style.php';
 
-$destino = "../backend/city/insert.php";
+$destino = "../backend/user/insert.php";
 
 if (!empty($_GET['id'])) {
     $id = $_GET['id'];
-    $sql = "SELECT * FROM cidade WHERE id = '$id' ";
+    $sql = "SELECT * FROM usuario WHERE id = '$id' ";
 
     $dados = mysqli_query($conexao, $sql);
-    $cidade = mysqli_fetch_assoc($dados);
-    $destino = "../backend/city/edit.php";
+    $usuarios = mysqli_fetch_assoc($dados);
+    $destino = "../backend/user/edit.php";
 
 }
 ?>
@@ -22,6 +22,7 @@ if (!empty($_GET['id'])) {
     <?php include 'recursos/navbar.php' ?>
 
     <div class="container-fluid">
+
         <div class="row">
 
             <div class="col-2 menu">
@@ -37,7 +38,7 @@ if (!empty($_GET['id'])) {
                         <label class="form-label">Id</label>
                         <input readonly name="id" type="text"
                             value="<?php echo isset($usuarios) ? $usuarios['id'] : "" ?>" class="form-control"
-                            placeholder="Digite seu Nome">
+                            placeholder="">
                     </div>
 
                     <div class="mb-3">
@@ -75,76 +76,73 @@ if (!empty($_GET['id'])) {
                     <button type="submit" class="btn btn-primary">Salvar</button>
                 </form>
             </div>
-            <div class="col-7 mt-5">
-                <h2>Venda de Áreas</h2>
-                <form class="row">
-                    <div class="col md-4">
-                        <label>Região</label>
-                        <select class="form-select">
-                            <option></option>
-                            <option>Noroeste</option>
-                            <option>Sul</option>
-                        </select>
-                    </div>
 
-                    <div class="col md-4">
-                        <label>Cidade</label>
-                        <select class="form-select">
-                            <option></option>
-                            <option>Nova Londrina</option>
-                            <option>Marilena</option>
-                        </select>
-                    </div>
+            <div class="col-7 mt-4">
+                <h1>Listagem</h1>
 
-                    <div class="col md-4">
-                        <label>Ponto Focal(E)</label>
-                        <select class="form-select">
-                            <option></option>
-                            <option>Nova Londrina</option>
-                            <option>Marilena</option>
-                        </select>
-                    </div>
-                    <div class="col md-4">
-                        <label>área do curso</label>
-                        <select class="form-select">
-                            <option></option>
-                            <option>Tecnologi</option>
-                            <option>Gastromia</option>
-                            <option>Garoto de programa</option>
-                        </select>
-                    </div>
-                    <div class="col md-4">
-                        <label>Data da compra</label>
-                        <input type="date" class="form-control">
-                    </div>
-                    <div class="col-md-12 mt-4">
-                        <label>Observação</label>
-                        <textarea class="form-control" rows="1"></textarea>
-                    </div>
+                <table id="tabela" class="table table-striped table-bordered">
+                    <thead class="table-info">
+                        <tr>
+                            <th class="text-center" scope="col">Id</th>
+                            <th class="text-center" scope="col">Nome</th>
+                            <th class="text-center" scope="col">E-Mail</th>
+                            <th class="text-center" scope="col">CPF</th>
+                            <th class="text-center" scope="col">Senha</th>
+                            <th class="text-center" scope="col">Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $sql = "SELECT * FROM usuario";
 
-                    <div class="col md12 mt-4 justify-content-end">
-                        <button type="submit" class="btn btn-success">Salvar</button>
-                        <a href="../index.html" class="btn btn-primary ms-1">Voltar</a>
-                    </div>
-                </form>
+                        $dados = mysqli_query($conexao, $sql);
+
+                        while ($coluna = mysqli_fetch_assoc($dados)) {
+
+                            ?>
+                            <tr class="text-center">
+                                <th class="text-center" scope="row"> <?php echo $coluna['id'] ?></th>
+                                <td class="text-center"><?php echo $coluna['nome'] ?></td>
+                                <td class="text-center"><?php echo $coluna['email'] ?></td>
+                                <td class="text-center"><?php echo $coluna['cpf'] ?></td>
+                                <td class="text-center"><?php echo $coluna['senha'] ?></td>
+                                <td class="text-center">
+                                    <a href="./user.php?id=<?= $coluna['id'] ?>"><i class="fa-solid fa-pencil me-4"
+                                            style="color: #9c7aff;"></i></a>
+                                    <a href="<?php echo "../backend/user/delete.php?id=" . $coluna['id'] ?>"
+                                        onclick="return confirm('Deseja realmente excluir!')"><i
+                                            class="fa-solid fa-trash-can" style="color: #ff0000;"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
             </div>
 
 
         </div>
+
     </div>
+
+    <!-- Codigo Js -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
         crossorigin="anonymous"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"
         integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script src="recursos/particles.js"></script>
     <script src="../Js/Script.js"></script>
 
 </body>
+
+</html>
