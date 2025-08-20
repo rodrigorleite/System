@@ -1,5 +1,5 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-    <p class="mt-4 text-center" style="color:white;">
+<ul class="navbar-nav sidebar accordion" id="accordionSidebar">
+    <p class="mt-4 text-center" style="color:white; font-weight: 800;">
         Bem vindo(a) <?php
         echo $_SESSION["usuario"]; ?>
     </p>
@@ -17,6 +17,9 @@
     </li>
     <li class="mt-2">
         <a href="city.php" class="menu-item"><i class="fa-solid fa-building"></i> Cidades</a>
+    </li>
+    <li class="mt-2">
+        <a href="course.php" class="menu-item"><i class="fa-solid fa-book"></i> Cursos</a>
     </li>
     <li class="mt-2">
         <a href="pointf.php" class="menu-item"><i class="fa-solid fa-map-pin"></i> Ponto Focal</a>

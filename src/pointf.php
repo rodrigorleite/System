@@ -50,29 +50,22 @@ if (!empty($_GET['id'])) {
 
                     <div class="mb-3">
                         <label class="form-label">Razão Social</label>
-                        <input name="razaoo_social" type="text"
-                            value="<?php echo isset($ponto_focal) ? $ponto_focal['estado'] : "" ?>" class="form-control"
-                            placeholder="Digite a razão social">
+                        <input name="razao_social" type="text"
+                            value="<?php echo isset($ponto_focal) ? $ponto_focal['razao_social'] : "" ?>"
+                            class="form-control" placeholder="Digite a Razão Social">
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Tipo</label>
                         <input name="tipo" type="text"
-                            value="<?php echo isset($ponto_focal) ? $ponto_focal['cep'] : "" ?>" class="form-control"
-                            placeholder="Digite o tipo da empresa">
+                            value="<?php echo isset($ponto_focal) ? $ponto_focal['tipo'] : "" ?>" class="form-control"
+                            placeholder="Digite o tipo da Empresa">
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">CPF</label>
+                        <label class="form-label">CPF/CNPJ</label>
                         <input name="cnpj_cpf" type="text"
-                            value="<?php echo isset($ponto_focal) ? $ponto_focal['cep'] : "" ?>"
-                            class="form-control cpf" placeholder="Digite o CPF">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">CNPJ</label>
-                        <input name="cnpj_cpf" type="text"
-                            value="<?php echo isset($ponto_focal) ? $ponto_focal['cep'] : "" ?>"
+                            value="<?php echo isset($ponto_focal) ? $ponto_focal['cnpj_cpf'] : "" ?>"
                             class="form-control cnpj" placeholder="Digite o CNPJ">
                     </div>
 
@@ -80,8 +73,37 @@ if (!empty($_GET['id'])) {
                         <label class="form-label">Endereço</label>
                         <input name="endereco" type="text"
                             value="<?php echo isset($ponto_focal) ? $ponto_focal['endereco'] : "" ?>"
+                            class="form-control cnpj" placeholder="Digite o endereço">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Telefone</label>
+                        <input name="telefone" type="text"
+                            value="<?php echo isset($ponto_focal) ? $ponto_focal['telefone'] : "" ?>"
+                            class="form-control phone" placeholder="Digite o Telefone">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Celular</label>
+                        <input name="celular" type="text"
+                            value="<?php echo isset($ponto_focal) ? $ponto_focal['celular'] : "" ?>"
+                            class="form-control phone_with_ddd" placeholder="Digite o Celular">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input name="email" type="text"
+                            value="<?php echo isset($ponto_focal) ? $ponto_focal['email'] : "" ?>" class="form-control"
+                            placeholder="Digite o Endereço">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Id Cidade</label>
+                        <input name="id_cidade_fk" type="text"
+                            value="<?php echo isset($ponto_focal) ? $ponto_focal['id_cidade_fk'] : "" ?>"
                             class="form-control" placeholder="Digite o Endereço">
                     </div>
+
                     <button type="submit" class="btn btn-primary">Salvar</button>
                 </form>
             </div>
@@ -101,6 +123,7 @@ if (!empty($_GET['id'])) {
                             <th class="text-center" scope="col">Endereço</th>
                             <th class="text-center" scope="col">Telefone</th>
                             <th class="text-center" scope="col">Celular</th>
+                            <th class="text-center" scope="col">Email</th>
                             <th class="text-center" scope="col">Email</th>
                             <th class="text-center" scope="col">Opções</th>
                         </tr>
@@ -124,10 +147,11 @@ if (!empty($_GET['id'])) {
                                 <td class="text-center"><?php echo $coluna['telefone'] ?></td>
                                 <td class="text-center"><?php echo $coluna['celular'] ?></td>
                                 <td class="text-center"><?php echo $coluna['email'] ?></td>
+                                <td class="text-center"><?php echo $coluna['id_cidade_fk'] ?></td>
                                 <td class="text-center">
-                                    <a href="./home.php?id=<?= $coluna['id'] ?>"><i class="fa-solid fa-pencil me-4"
+                                    <a href="./pointf.php?id=<?= $coluna['id'] ?>"><i class="fa-solid fa-pencil me-4"
                                             style="color: #9c7aff;"></i></i></a>
-                                    <a href="<?php echo "../backend/city/delete.php?id=" . $coluna['id'] ?>"
+                                    <a href="<?php echo "../backend/pointf/delete.php?id=" . $coluna['id'] ?>"
                                         onclick="return confirm('Deseja realmente excluir!')"><i
                                             class="fa-solid fa-trash-can" style="color: #ff0000;"></i>
                                     </a>
@@ -140,13 +164,6 @@ if (!empty($_GET['id'])) {
 
 
         </div>
-
-    </div>
-
-
-
-
-    </div>
 
     </div>
 

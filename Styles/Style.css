@@ -7,6 +7,7 @@
     font-weight: 400;
     font-style: normal;
     list-style: none;
+    outline: none;  
 }
 
 body {
@@ -15,11 +16,11 @@ body {
 
 .navbar {
     /* background-color: red !important; */
-    background: linear-gradient(to right, rgb(71, 71, 71), #7ec7ff);
+    background: #618a9b;
 }
 
 .menu {
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(136, 136, 136);
     height: 100vh;
     list-style: none;
 
@@ -33,7 +34,7 @@ body {
 }
 
 .menu-item:hover {
-    color: rgb(255, 237, 237)
+    color: rgb(0, 0, 0)
 }
 
 /* TELA DE LOGIN */

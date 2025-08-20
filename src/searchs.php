@@ -111,7 +111,12 @@ if (!empty($_GET['id'])) {
             <div class=" col-7 table-responsive mt-5">
 
 
-                <div class="">
+                <?php
+                $base_path = $_SERVER['DOCUMENT_ROOT'] . '/Projects/System/';
+                include($base_path . 'src/graphic.html');
+                ?>
+
+                <!-- <div class="">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Bar chart</h4>
@@ -139,7 +144,7 @@ if (!empty($_GET['id'])) {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- <body>
                         <tr>
@@ -161,6 +166,9 @@ if (!empty($_GET['id'])) {
             </div>
         </div>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.min.js"
+            integrity="sha512-n/G+dROKbKL3GVngGWmWfwK0yPctjZQM752diVYnXZtD/48agpUKLIn0xDQL9ydZ91x6BiOmTIFwWjjFi2kEFg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
             integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -174,21 +182,5 @@ if (!empty($_GET['id'])) {
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         <script src="../Js/Script.js"></script>
-
-        <script src="../backend/assets/vendors/js/vendor.bundle.base.js"></script>
-        <!-- endinject -->
-        <!-- Plugin js for this page -->
-        <script src="../backend/assets/vendors/chart.js/Chart.min.js"></script>
-        <!-- End plugin js for this page -->
-        <!-- inject:js -->
-        <script src="../backend/assets/js/off-canvas.js"></script>
-        <script src="../backend/assets/js/hoverable-collapse.js"></script>
-        <script src="../backend/assets/js/misc.js"></script>
-        <script src="../backend/assets/js/settings.js"></script>
-        <script src="../backend/assets/js/todolist.js"></script>
-        <!-- endinject -->
-        <!-- Custom js for this page -->
-        <script src="../backend/assets/js/chart.js"></script>
-        <!-- End custom js for this page -->
 
 </body>

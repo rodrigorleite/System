@@ -10,11 +10,13 @@ if (!empty($_GET['id'])) {
     $id = $_GET['id'];
     $sql = "SELECT * FROM curso WHERE id = '$id' ";
 
+
     $dados = mysqli_query($conexao, $sql);
     $curso = mysqli_fetch_assoc($dados);
     $destino = "../backend/course/edit.php";
 
 }
+
 ?>
 
 <body>
@@ -47,14 +49,8 @@ if (!empty($_GET['id'])) {
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Numero</label>
-                        <input name="numero" type="text" value="<?php echo isset($curso) ? $curso['numero'] : "" ?>"
-                            class="form-control" placeholder="Digite o numero do curso">
-                    </div>
-
-                    <div class="mb-3">
                         <label class="form-label">Área</label>
-                        <select name="id_area_fk" class="form-control">
+                        <select name="id_area_fk" class="form-select">
                             <option value="">Selecione a área</option>
                             <?php
                             $sql_areas = "SELECT id, nome FROM area";
@@ -80,7 +76,7 @@ if (!empty($_GET['id'])) {
                         <tr>
                             <th class="text-center" scope="col">Id</th>
                             <th class="text-center" scope="col">Nome</th>
-                            <th class="text-center" scope="col">Numero</th>
+                            <th class="text-center" scope="col">Área</th>
                             <th class="text-center" scope="col">Opções</th>
                         </tr>
                     </thead>
@@ -96,7 +92,7 @@ if (!empty($_GET['id'])) {
                             <tr class="text-center">
                                 <th class="text-center" scope="row"> <?php echo $coluna['id'] ?></th>
                                 <td class="text-center"><?php echo $coluna['nome'] ?></td>
-                                <td class="text-center"><?php echo $coluna['numero'] ?></td>
+                                <td class="text-center"><?php echo $coluna['id_area_fk'] ?></td>
                                 <td class="text-center">
                                     <a href="./course.php?id=<?= $coluna['id'] ?>"><i class="fa-solid fa-pencil me-4"
                                             style="color: #9c7aff;"></i></i></a>

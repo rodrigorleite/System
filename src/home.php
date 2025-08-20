@@ -4,7 +4,7 @@ include '../backend/conexao.php';
 include '../backend/validacao.php';
 include 'recursos/style.php';
 
-$destino = "../backend/city/insert.php";
+$destino = "../backend/";
 
 if (!empty($_GET['id'])) {
     $id = $_GET['id'];
@@ -12,7 +12,7 @@ if (!empty($_GET['id'])) {
 
     $dados = mysqli_query($conexao, $sql);
     $cidade = mysqli_fetch_assoc($dados);
-    $destino = "../backend/city/edit.php";
+    $destino = "../backend/";
 
 }
 ?>

@@ -12,7 +12,7 @@ $celular = $_REQUEST['celular'];
 $email = $_REQUEST['email'];
 $id_cidade_fk = $_REQUEST['id_cidade_fk'];
 
-$sql = "INSERT INTO ponto_focal(nome, razao_social, tipo, cnpj_cpf, endereco, telefone, celular, email, id_regiao_fk) VALUES ('$nome', '$razao_social', '$tipo', '$cnpj_cpf', '$endereco', '$telefone', '$celular', '$email', '$id_regiao_fk')";
+$sql = "INSERT INTO ponto_focal(nome, razao_social, tipo, cnpj_cpf, endereco, telefone, celular, email, id_cidade_fk) VALUES ('$nome', '$razao_social', '$tipo', '$cnpj_cpf', '$endereco', '$telefone', '$celular', '$email', '$id_cidade_fk')";
 
 $resultado = mysqli_query($conexao, $sql);
 
