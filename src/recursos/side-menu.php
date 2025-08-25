@@ -1,5 +1,5 @@
 <ul class="navbar-nav sidebar accordion" id="accordionSidebar">
-    <p class="mt-4 text-center" style="color:white; font-weight: 800;">
+    <p class="mt-4 text-center" style="color:white; font-weight: 600;">
         Bem vindo(a) <?php
         echo $_SESSION["usuario"]; ?>
     </p>

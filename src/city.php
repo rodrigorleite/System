@@ -56,7 +56,8 @@ if (!empty($_GET['id'])) {
                         <label class="form-label">Região</label>
                         <select name="id_regiao_fk" class="form-select">
                             <option value='<?php echo isset($cidade) ? $regiao_anterior['Id'] : "" ?>'>
-                                <?php echo isset($cidade) ? $regiao_anterior['nome'] : "Selecione" ?> </option>;
+                                <?php echo isset($cidade) ? $regiao_anterior['nome'] : "Selecione a Região" ?>
+                            </option>;
                             <?php
                             // Consulta para obter os nomes das regiões
                             $sql_regioes = "SELECT Id, nome FROM regiao ";
@@ -109,7 +110,7 @@ if (!empty($_GET['id'])) {
                             <th class="text-center" scope="col">Nome</th>
                             <th class="text-center" scope="col">Estado</th>
                             <th class="text-center" scope="col">Cep</th>
-                            <th class="text-center" scope="col">Id região</th>
+                            <th class="text-center" scope="col">Região</th>
                             <th class="text-center" scope="col">Opções</th>
                         </tr>
                     </thead>
@@ -127,7 +128,14 @@ if (!empty($_GET['id'])) {
                                 <td class="text-center"><?php echo $coluna['nome'] ?></td>
                                 <td class="text-center"><?php echo $coluna['estado'] ?></td>
                                 <td class="text-center"><?php echo $coluna['cep'] ?></td>
-                                <td class="text-center"><?php echo $coluna['id_regiao_fk'] ?></td>
+
+                                <?php
+                                $sql = "SELECT * FROM regiao WHERE Id=".$coluna['id_regiao_fk'];
+                                $resultado = mysqli_query($conexao, $sql);
+                                $regiao = mysqli_fetch_assoc($resultado);
+                                ?>
+
+                                <td class="text-center"><?php echo $regiao['nome'] ?></td>
                                 <td class="text-center">
                                     <a href="./city.php?id=<?= $coluna['id'] ?>"><i class="fa-solid fa-pencil me-4"
                                             style="color: #9c7aff;"></i></i></a>
@@ -141,8 +149,6 @@ if (!empty($_GET['id'])) {
                     </tbody>
                 </table>
             </div>
-
-
         </div>
 
     </div>

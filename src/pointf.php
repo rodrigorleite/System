@@ -73,14 +73,14 @@ if (!empty($_GET['id'])) {
                         <label class="form-label">Endereço</label>
                         <input name="endereco" type="text"
                             value="<?php echo isset($ponto_focal) ? $ponto_focal['endereco'] : "" ?>"
-                            class="form-control cnpj" placeholder="Digite o endereço">
+                            class="form-control" placeholder="Digite o endereço">
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Telefone</label>
                         <input name="telefone" type="text"
                             value="<?php echo isset($ponto_focal) ? $ponto_focal['telefone'] : "" ?>"
-                            class="form-control phone" placeholder="Digite o Telefone">
+                            class="form-control celular" placeholder="Digite o Telefone">
                     </div>
 
                     <div class="mb-3">
