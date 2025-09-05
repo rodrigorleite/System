@@ -4,15 +4,15 @@ include '../backend/conexao.php';
 include '../backend/validacao.php';
 include 'recursos/style.php';
 
-$destino = "../backend/city/insert.php";
+$destino = "../backend/venda/insert.php";
 
 if (!empty($_GET['id'])) {
     $id = $_GET['id'];
-    $sql = "SELECT * FROM cidade WHERE id = '$id' ";
+    $sql = "SELECT * FROM venda WHERE id = '$id' ";
 
     $dados = mysqli_query($conexao, $sql);
-    $cidade = mysqli_fetch_assoc($dados);
-    $destino = "../backend/city/edit.php";
+    $venda = mysqli_fetch_assoc($dados);
+    $destino = "../backend/esell/edit.php";
 
 }
 ?>
@@ -24,93 +24,62 @@ if (!empty($_GET['id'])) {
     <div class="container-fluid">
         <div class="row">
 
-            <div class="col-2 menu">
-                <?php include 'recursos/side-menu.php' ?>
-            </div>
-
-            <div class="col-3 mt-4">
-                <h1>Cadastro</h1>
-
-                <form action="<?= $destino ?>" method="post">
-
-                    <div class="mb-3" style="display: none">
-                        <label class="form-label">Id</label>
-                        <input readonly name="id" type="text"
-                            value="<?php echo isset($usuarios) ? $usuarios['id'] : "" ?>" class="form-control"
-                            placeholder="Digite seu Nome">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Nome</label>
-                        <input name="nome" type="text" value="<?php echo isset($usuarios) ? $usuarios['nome'] : "" ?>"
-                            class="form-control" placeholder="Digite seu Nome">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">E-mail</label>
-                        <input name="email" type="email"
-                            value="<?php echo isset($usuarios) ? $usuarios['email'] : "" ?>" class="form-control"
-                            placeholder="Digite seu E-mail">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">CPF</label>
-                        <input name="cpf" type="text" value="<?php echo isset($usuarios) ? $usuarios['cpf'] : "" ?>"
-                            class="form-control cpf" placeholder="Digite seu CPF">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="senha" class="form-label">Senha</label>
-                        <div class="input-group">
-                            <input name="senha" type="password" class="form-control" id="senha"
-                                placeholder="Digite sua senha"
-                                value="<?php echo isset($usuarios) ? $usuarios['senha'] : "" ?>"
-                                autocomplete="new-password">
-                            <button class="btn btn-outline-secondary ms-1" type="button" id="toggleSenha">
-                                <i class="fa fa-eye" id="iconeOlho"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Salvar</button>
-                </form>
-            </div>
             <div class="col-7 mt-5">
                 <h2>Venda de Áreas</h2>
                 <form class="row">
                     <div class="col md-4">
-                        <label>Região</label>
-                        <select class="form-select">
-                            <option></option>
-                            <option>Noroeste</option>
-                            <option>Sul</option>
+                        <label> Região </label>
+                        <select name="regiao" class="form-select" required>
+                            <option> Selecione a Região</option>
+                            <?php
+                            $sql = "SELECT * FROM regiao ORDER BY nome";
+                            $resultado = mysqli_query($conexao, $sql);
+                            while ($reg = mysqli_fetch_assoc($resultado)) {
+                                echo "<option value='{$reg['id']}' >{$reg['nome']}</option>";
+                            }
+                            ?>
                         </select>
+
                     </div>
 
                     <div class="col md-4">
                         <label>Cidade</label>
-                        <select class="form-select">
-                            <option></option>
-                            <option>Nova Londrina</option>
-                            <option>Marilena</option>
+                        <select name="cidade" class="form-select" required>
+                            <option> Selecione a Cidade</option>
+                            <?php
+                            $sql = "SELECT * FROM cidade ORDER BY nome";
+                            $resultado = mysqli_query($conexao, $sql);
+                            while ($reg = mysqli_fetch_assoc($resultado)) {
+                                echo "<option value='{$reg['id']}' >{$reg['nome']}</option>";
+                            }
+                            ?>
                         </select>
                     </div>
 
                     <div class="col md-4">
-                        <label>Ponto Focal(E)</label>
-                        <select class="form-select">
-                            <option></option>
-                            <option>Nova Londrina</option>
-                            <option>Marilena</option>
+                        <label>Empresa</label>
+                        <select name="ponto_focal" class="form-select" required>
+                            <option> Selecione a Região</option>
+                            <?php
+                            $sql = "SELECT * FROM ponto_focal ORDER BY nome";
+                            $resultado = mysqli_query($conexao, $sql);
+                            while ($reg = mysqli_fetch_assoc($resultado)) {
+                                echo "<option value='{$reg['id']}' >{$reg['nome']}</option>";
+                            }
+                            ?>
                         </select>
                     </div>
                     <div class="col md-4">
                         <label>área do curso</label>
-                        <select class="form-select">
-                            <option></option>
-                            <option>Tecnologi</option>
-                            <option>Gastromia</option>
-                            <option>Garoto de programa</option>
+                        <select name="area" class="form-select" required>
+                            <option> Selecione a Região</option>
+                            <?php
+                            $sql = "SELECT * FROM area ORDER BY nome";
+                            $resultado = mysqli_query($conexao, $sql);
+                            while ($reg = mysqli_fetch_assoc($resultado)) {
+                                echo "<option value='{$reg['id']}' >{$reg['nome']}</option>";
+                            }
+                            ?>
                         </select>
                     </div>
                     <div class="col md-4">
@@ -118,17 +87,16 @@ if (!empty($_GET['id'])) {
                         <input type="date" class="form-control">
                     </div>
                     <div class="col-md-12 mt-4">
-                        <label>Observação</label>
-                        <textarea class="form-control" rows="1"></textarea>
+                        <label>Observação</label>   
+                        <textarea name="area" class="form-control" rows="1"></textarea>
                     </div>
 
                     <div class="col md12 mt-4 justify-content-end">
                         <button type="submit" class="btn btn-success">Salvar</button>
-                        <a href="../index.html" class="btn btn-primary ms-1">Voltar</a>
+                        <a href="home.php" class="btn btn-primary ms-1">Voltar</a>
                     </div>
                 </form>
             </div>
-
 
         </div>
     </div>

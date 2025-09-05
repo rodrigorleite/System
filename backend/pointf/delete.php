@@ -1,15 +1,15 @@
-<?php
+    <?php
 
-include '../conexao.php';
+    include '../conexao.php';
 
-$id = $_REQUEST['id'];
+    $id = $_REQUEST['id'];
 
-$sql =  "DELETE FROM ponto_focal WHERE id = '$id' ";
-$resultado = mysqli_query($conexao, $sql);
+    $sql =  "DELETE FROM ponto_focal WHERE id = '$id' ";
+    $resultado = mysqli_query($conexao, $sql);
 
-session_start();
-$_SESSION['mensagem'] = "excluido com sucesso!";
+    session_start();
+    $_SESSION['mensagem'] = "excluido com sucesso!";
 
-header('Location:../../src/pointf.php');
+    header('Location:../../src/pointf.php');
 
-?>
+    ?>

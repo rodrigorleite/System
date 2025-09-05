@@ -40,7 +40,7 @@
             Vendas</a>
     </li>
     <li class="mt-2">
-        <a href="esell.php" class="menu-item"><i class="fa-solid fa-money-bill-trend-up"></i> Efetuar
+        <a href="venda.php" class="menu-item"><i class="fa-solid fa-money-bill-trend-up"></i> Efetuar
             Venda</a>
     </li>
 </ul>
